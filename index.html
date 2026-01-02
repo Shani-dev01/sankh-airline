@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Air Sankh - Redefining the Skies</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#001B94", 
+                        secondary: "#004AAD", 
+                        brand: "#001B94", // Indigo-like deep blue
+                        "brand-light": "#EAF2F8",
+                        "accent": "#009c5b", // Green accent for text
+                        "background-light": "#F7F9FB",
+                        "background-dark": "#0F172A", 
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E293B", 
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1626014902353-8b704c7c8052?q=80&w=2070&auto=format&fit=crop')",
+                        'clouds': "url('https://images.unsplash.com/photo-1594156596782-fa8205b1f180?auto=format&fit=crop&q=80&w=2000')",
+                    },
+                    animation: {
+                        'slide-fade': 'slideFade 9s infinite',
+                    },
+                    keyframes: {
+                        slideFade: {
+                            '0%, 30%': { opacity: '1', transform: 'translateX(0)' },
+                            '33%, 63%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '66%, 96%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        :root {
+          --primary-color: #001B94;
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }.carousel-container {
+            position: relative;
+            height: 3rem; 
+            overflow: hidden;
+        }
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-sans antialiased transition-colors duration-300">
+<nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-20 items-center">
+<div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+<div class="flex items-center">
+    <a href="index.html" aria-label="Air Sankh homepage">
+        <img src="logo-Dark-blue.png" alt="Air Sankh logo" class="h-8 md:h-12 w-auto object-contain">
+    </a>
+</div>
+</div>
+<div class="hidden lg:flex space-x-6 items-center">
+<a class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">
+                        Book <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</a>
+<a class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">
+                        Trips <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">Deals and Offers</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">Check-in</a>
+<a class="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">
+                        Air Sankh Club <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-brand dark:hover:text-primary font-medium text-sm transition" href="#">Tariff Sheet</a>
+<a class="bg-surface-light border border-gray-300 text-brand px-5 py-2 rounded-md font-medium text-sm transition hover:bg-gray-50 flex items-center gap-1" href="#">
+                        Login <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</a>
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition" id="theme-toggle">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-300 text-xl">dark_mode</span>
+</button>
+</div>
+<div class="lg:hidden flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" id="theme-toggle-mobile">
+<span class="material-symbols-outlined text-gray-700 dark:text-gray-300">dark_mode</span>
+</button>
+<button class="text-gray-700 dark:text-white hover:text-primary focus:outline-none" id="mobile-menu-btn">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</div>
+</div>
+<div class="hidden lg:hidden bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 absolute w-full" id="mobile-menu">
+<div class="px-4 pt-2 pb-6 space-y-2 shadow-lg">
+<a class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md" href="#">Book</a>
+<a class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md" href="#">Trips</a>
+<a class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md" href="#">Deals and Offers</a>
+<a class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md" href="#">Check-in</a>
+<a class="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md" href="#">Air Sankh Club</a>
+<a class="block px-3 py-2 text-base font-medium text-primary font-bold" href="#">Login</a>
+</div>
+</div>
+</nav>
+<div class="pt-20">
+<section class="relative bg-background-light dark:bg-background-dark pb-20">
+
+    <!-- Full-width hero slider -->
+    <div class="w-full overflow-hidden">
+        <div class="carousel-container relative w-screen left-1/2 right-1/2 -translate-x-1/2 h-[450px] md:h-[550px]">
+            <div class="carousel-slide active" id="slide-1">
+                <img src="sourabh-pandey-EOm5YV73zns-unsplash.jpg" alt="Lucknow aerial" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center justify-center p-8 z-20">
+                    <div class="max-w-2xl text-center">
+                        <h2 class="text-white text-4xl md:text-6xl font-bold">Lucknow — Book flights to discover heritage and comfort.</h2>
+                        <a href="#" class="inline-block mt-6 px-8 py-3 bg-brand text-white font-bold rounded-md hover:bg-white hover:text-brand transition">Book now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide" id="slide-2">
+                <img src="shubhanshu-prajapati-aZdnWO0LFZc-unsplash.jpg" alt="Prayagraj river" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center justify-center p-8 z-20">
+                    <div class="max-w-2xl text-center">
+                        <h2 class="text-white text-4xl md:text-6xl font-bold">Prayagraj — Seamless bookings for spiritual journeys.</h2>
+                        <a href="#" class="inline-block mt-6 px-8 py-3 bg-brand text-white font-bold rounded-md hover:bg-white hover:text-brand transition">Book now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide" id="slide-3">
+                <img src="abhishek-royal-cGEGb-hUbCk-unsplash.jpg" alt="Kashi ghats" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center justify-center p-8 z-20">
+                    <div class="max-w-2xl text-center">
+                        <h2 class="text-white text-4xl md:text-6xl font-bold">Kashi — Book now and feel every moment of the journey.</h2>
+                        <a href="#" class="inline-block mt-6 px-8 py-3 bg-brand text-white font-bold rounded-md hover:bg-white hover:text-brand transition">Book now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-xl overflow-hidden">
+<div class="flex border-b border-gray-200 dark:border-gray-700">
+<button class="flex-1 py-4 px-6 text-sm font-bold text-white bg-brand flex items-center justify-center gap-2 border-r border-blue-900">
+<span class="material-symbols-outlined">flight</span> Flights
+                        </button>
+<!-- Hotels tab removed as requested -->
+<button class="flex-1 py-4 px-6 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">camera_alt</span> Sight Seeing <span class="bg-brand text-white text-[10px] px-2 py-0.5 rounded-full ml-1">50%* off</span>
+</button>
+</div>
+<div class="p-6 md:p-8">
+<div class="flex flex-wrap gap-6 mb-6">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-brand focus:ring-brand w-4 h-4" name="tripType" type="radio"/>
+<span class="text-sm font-medium text-brand dark:text-white">One Way</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-brand focus:ring-brand w-4 h-4" name="tripType" type="radio"/>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-300">Round Trip</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-brand focus:ring-brand w-4 h-4" name="tripType" type="radio"/>
+<span class="text-sm font-medium text-gray-600 dark:text-gray-300">Multi City</span>
+</label>
+<div class="ml-auto flex items-center bg-gray-100 dark:bg-gray-800 rounded-md px-3 py-1">
+<span class="text-xs font-bold text-gray-600 dark:text-gray-300 mr-2">Pay with</span>
+<span class="text-xs font-bold text-brand">Cash</span>
+<span class="material-symbols-outlined text-sm ml-1">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-0 md:border md:border-gray-200 md:dark:border-gray-700 md:rounded-lg md:divide-x md:divide-gray-200 md:dark:divide-gray-700 mb-6 bg-white dark:bg-surface-dark">
+<div class="md:col-span-3 p-3 relative group hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition">
+<label class="block text-xs font-medium text-gray-500 mb-1">From</label>
+<div class="font-bold text-xl text-brand dark:text-white truncate">Lucknow, LKO</div>
+<div class="text-xs text-gray-500 truncate">Chaudhary Charan Singh International Airport</div>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:block translate-x-1/2">
+<button class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full p-1 shadow-sm hover:rotate-180 transition duration-300">
+<span class="material-symbols-outlined text-brand dark:text-white text-sm block">swap_horiz</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition">
+<label class="block text-xs font-medium text-gray-500 mb-1">To</label>
+<div class="font-bold text-xl text-brand dark:text-white truncate">Mumbai, BOM</div>
+<div class="text-xs text-gray-500 truncate">Chhatrapati Shivaji Maharaj International Airport</div>
+</div>
+<div class="md:col-span-2 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition">
+<label class="block text-xs font-medium text-gray-500 mb-1">Departure</label>
+<div class="font-bold text-xl text-brand dark:text-white">3 Jan</div>
+<div class="text-xs text-gray-500">Saturday</div>
+</div>
+<div class="md:col-span-2 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition opacity-50">
+<label class="block text-xs font-medium text-gray-500 mb-1">Return</label>
+<div class="text-xs font-medium text-gray-500 mt-1">Save more and enjoy up to ₹1000 off!</div>
+</div>
+<div class="md:col-span-2 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition">
+<label class="block text-xs font-medium text-gray-500 mb-1 flex justify-between">
+                                    Travellers &amp; Special Fares
+                                    <span class="material-symbols-outlined text-sm">expand_more</span>
+</label>
+<div class="font-bold text-xl text-brand dark:text-white">1 Passenger</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-4 text-sm w-full md:w-auto">
+<div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer">
+<span class="font-medium text-gray-700 dark:text-gray-300">Students</span>
+<span class="bg-brand text-white text-[10px] px-1.5 py-0.5 rounded">Offer</span>
+</div>
+<div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer">
+<span class="font-medium text-gray-700 dark:text-gray-300">Family &amp; Friends</span>
+<span class="bg-brand text-white text-[10px] px-1.5 py-0.5 rounded">Offer</span>
+</div>
+<div class="text-xs font-bold text-brand uppercase tracking-wider cursor-pointer hover:underline">
+                                    + Add Promo Code
+                                </div>
+</div>
+<button class="w-full md:w-auto bg-brand hover:bg-blue-900 text-white font-bold py-3 px-12 rounded-md shadow-lg transition duration-300">
+                                Search
+                            </button>
+</div>
+</div>
+<div class="bg-brand-light dark:bg-gray-800 px-6 py-4 flex flex-col md:flex-row justify-around items-center gap-4">
+<div class="flex items-center justify-between w-full md:w-auto gap-4 cursor-pointer group">
+<div>
+<h4 class="font-bold text-brand dark:text-white text-sm group-hover:text-primary transition">One click away</h4>
+<p class="text-xs text-gray-500">Find flights at lowest fare</p>
+</div>
+<span class="material-symbols-outlined text-brand dark:text-white group-hover:translate-x-1 transition">arrow_outward</span>
+</div>
+<div class="hidden md:block w-px h-10 bg-gray-300 dark:bg-gray-600"></div>
+<div class="flex items-center justify-between w-full md:w-auto gap-4 cursor-pointer group">
+<div>
+<h4 class="font-bold text-brand dark:text-white text-sm group-hover:text-primary transition">Compensation</h4>
+<p class="text-xs text-gray-500"> </p>
+</div>
+<span class="material-symbols-outlined text-brand dark:text-white group-hover:translate-x-1 transition">arrow_outward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-8 bg-white dark:bg-background-dark overflow-hidden">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-2 mb-6">
+<h2 class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light">
+                        Find <span class="font-bold text-brand dark:text-white">exciting offers</span> and best deals.
+                    </h2>
+<div class="flex gap-2 ml-auto">
+<button class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+<span class="material-symbols-outlined text-sm">arrow_back_ios_new</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center hover:bg-blue-900 transition">
+<span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-12 md:col-span-8 rounded-2xl overflow-hidden shadow-md relative group h-[300px] md:h-[400px]">
+<div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-transparent p-8 md:p-12 flex flex-col justify-center text-white">
+<h3 class="text-4xl md:text-6xl font-display font-bold mb-4">Student special</h3>
+<div class="grid grid-cols-3 gap-4 max-w-lg mt-4">
+<div class="border-r border-white/30 pr-4">
+<div class="text-2xl font-bold">10 kg</div>
+<div class="text-xs opacity-80">additional baggage</div>
+</div>
+<div class="border-r border-white/30 pr-4">
+<div class="text-2xl font-bold">Zero</div>
+<div class="text-xs opacity-80">charge on flight change</div>
+</div>
+<div>
+<div class="text-2xl font-bold">10%</div>
+<div class="text-xs opacity-80">off on flights</div>
+</div>
+</div>
+<p class="mt-8 text-sm opacity-80">Exclusively on Air Sankh web &amp; app</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 flex flex-col gap-6">
+<div class="h-[190px] rounded-2xl overflow-hidden shadow-md relative group bg-black">
+<img class="w-full h-full object-cover opacity-70 group-hover:opacity-50 transition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0z3nXn-u058fnrf3MdYAFc2n5i2z5R0AaEYwarDTSHbyPFhEZqFoQLxKSJ-Sy0fUz0jTv0CltiN6OLEKyVWUqnZOCoz0w-2nIrcexSY24phtSJEnNX9RGYfNLSF8Ub3Z_an7Aftfk8eNx4dkrzLz87os2r-YhVyLleIiz7mlQUTWYMN2KVf40hi5yCnG8DjBzyEyTwtksgWBXFZ7WyAOZPaJGGYsWklOLzXoFIcMIs-nUcLTreSXN2unYdtwuo9i4bx1OmlTZ_iw"/>
+<div class="absolute inset-0 flex flex-col justify-center p-6 text-white">
+<h4 class="text-2xl font-bold">Enrol with<br/>Air Sankh Club</h4>
+<p class="text-sm mt-2 mb-4">Get one step closer to your free flights</p>
+<button class="bg-white text-black text-sm font-bold py-2 px-4 rounded w-max">Enrol now</button>
+</div>
+</div>
+<div class="h-[190px] rounded-2xl overflow-hidden shadow-md relative group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDh3YQB1mJedcspiGgjs-GEyXL4iOHs1pzqcQddOrujVEQU0EvH0dNVmicJi2HIbzJfzkulmuLYk5Of1BzbAY6qv27gOFesugWqpgqhprZJ4AXzNdkf-ZqJ6xsTRJmhiySNxQRXZcj59sTv0136HfiXaUUwMgrYO8QdHPT09dgvaW_uSF8nFTtf4eVtjGbn8ieOTEI-wqGSz5gFIp0y8R-TNdgBw7dPA03hG4esjM3ujQ2xfrnsYbUGZl6KdyAisAa7_CcKuRifxzs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+<h4 class="text-2xl font-display font-bold">Season's Stays</h4>
+<p class="text-xs mt-1">Book your stay and get up to 25%* off.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-12 bg-background-light dark:bg-background-dark">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-xl font-medium text-gray-500 mb-8">New Destinations</h2>
+<div class="flex items-center gap-4 md:gap-8 overflow-x-auto scrollbar-hide pb-4">
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-brand relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="image_1dbbec30.png"/>
+</div>
+<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full">New</span>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Kashi</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-brand relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="image_7062d47e.png"/>
+</div>
+<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full">New</span>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Lucknow</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-brand relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="image_733460c1.png"/>
+</div>
+<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full">New</span>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Prayagraj</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-transparent relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="image_86443f9b.png"/>
+</div>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Jaipur</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-transparent relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="image_f6c93c5f.png"/>
+</div>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Cochin</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group">
+<div class="w-24 h-24 rounded-full p-1 border-2 border-transparent relative">
+<div class="w-full h-full rounded-full overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANC2ieaQiLsdCIgpSRrQmJK0lZYAzxxtuY3wpWaxVPmTNN65KPs9YPAo3N0g9y_1y-3RfDz_VFjnaLf6uBPVbFgFNHdhZkBrhghFcJEbI4zzxr9Z7erAJMJ4A34YvFes00nPygj5Kp-FgskzIoaV5UDMZExxqgaunVwXQEfT0tTp1HGZbeXr5DyztHhVhUWfCYm329dGe8PgD4g6m2qIcaFzeMRkIudcvkmpPKieM_Df886d9rxJ_d4TH3U7-cfxd4-C4-zXykNio"/>
+</div>
+</div>
+<span class="text-sm font-bold text-gray-800 dark:text-white">Mumbai</span>
+</div>
+<div class="flex flex-col items-center gap-3 min-w-[100px] cursor-pointer group ml-auto">
+<div class="w-24 h-24 rounded-full border border-brand text-brand bg-white flex items-center justify-center hover:bg-brand hover:text-white transition">
+<span class="material-symbols-outlined text-4xl">arrow_forward</span>
+</div>
+<span class="text-sm font-bold text-brand">View All</span>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-white dark:bg-background-dark">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="space-y-6">
+<h2 class="text-4xl md:text-5xl font-sans font-medium text-gray-900 dark:text-white leading-tight">
+                            Embark on a journey of inspiration with Air Sankh, where <span class="text-accent font-bold">discovery meets the sky.</span>
+</h2>
+<button class="px-8 py-3 rounded-full border border-brand text-brand font-bold hover:bg-brand hover:text-white transition">
+                            Explore
+                        </button>
+<div class="mt-12 flex gap-6 items-start">
+<img alt="Manchester" class="w-32 h-20 object-cover rounded-lg shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcLq8iK0ACSYrWNpjitjEDRd-B4Z24tFSaRZk3Irel2W_JeixWOXRlnfl2YjKwxoSEKs6YdILpPdeTYYv1cq9_al0UXa7acaJPfVkReXyYjTscfwOzk9qUKCEdaNYwvsB6_qbv_vtSt5TgRdQhinaz_uU58x_xddPwG5hAqIAmAt7eKerHuyb9Ncap-lxEb94UpNLoq375xhaW9UnXa-WFVpkMpqqRYI68aaU89X3xTuK38IeAokBEnr_mf8zVFFWg4FJXBpz2_Sw"/>
+<div>
+<h4 class="font-bold text-xl mb-2 text-gray-800 dark:text-white">Namaste Manchester:</h4>
+<p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed max-w-md">
+                                    Air Sankh announces its long-haul debut with non-stop flights connecting Mumbai and Manchester starting 01 July 2025.
+                                </p>
+<p class="text-xs text-gray-500 mt-2">21 May 2025</p>
+<button class="mt-4 bg-brand text-white px-6 py-2 rounded-full text-sm font-bold">View more</button>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute top-4 right-4 z-20">
+<button class="p-2 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="absolute top-4 left-4 z-20 text-white font-bold flex items-center gap-2">
+                            Explore Copenhagen <span class="material-symbols-outlined text-sm">open_in_new</span>
+</div>
+<div class="rounded-t-[40px] rounded-bl-[100px] rounded-br-[40px] overflow-hidden shadow-2xl h-[500px] relative bg-gray-200">
+<img alt="Copenhagen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpn5qJIdGA_2TzULLPTMj_313ufhX4s46UjmHkiLQrBrPWARV1KWvDZyKj0sCJJEeUHSMAjpQcT0a0mPGqez1h6y5iowEh05FOaT5loLlGsi7-vjaf-nfkuuXQKl81awDWarDbByBzvVb-Vioaatt8qsQkBkxeATap4E_bI7yfH9ytVEVavR4WUxi5BhPbYkITsncyd26cHfKW5gqybYjVGWV8O8a74p3UsVrZB3W3dsQn_0fKF4Tz70sDdomBc9zfQU_tg3UJkaU"/>
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/40 backdrop-blur rounded-full px-6 py-3">
+<span class="material-symbols-outlined text-white cursor-pointer">skip_previous</span>
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-black">play_arrow</span>
+</div>
+<span class="material-symbols-outlined text-white cursor-pointer">skip_next</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-blue-50/50 dark:bg-surface-dark relative overflow-hidden">
+<div class="absolute top-10 left-10 text-[10rem] font-bold text-white leading-none opacity-80 pointer-events-none select-none drop-shadow-sm">
+                Add more<br/>to your journey
+             </div>
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="flex justify-between items-end mb-12">
+<h2 class="text-4xl md:text-5xl font-sans font-medium text-white drop-shadow-md">
+<span class="text-accent font-bold">6E Add-ons</span>
+</h2>
+<button class="px-6 py-2 bg-gray-500/80 hover:bg-gray-600 text-white text-xs font-bold rounded flex items-center gap-1 backdrop-blur-sm">
+                        VIEW ALL <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-gray-600 p-8 rounded-xl min-h-[300px] flex flex-col justify-between text-white relative overflow-hidden hover:shadow-xl transition group">
+<div class="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<h3 class="text-3xl font-medium relative z-10">Pre book fast<br/>forward at up<br/>to 70%<br/>discount</h3>
+<div class="flex items-end justify-between relative z-10">
+<p class="text-xs opacity-80 max-w-[150px]">Priority check-in and anytime boarding.</p>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition">
+<span class="material-symbols-outlined text-gray-800">north_east</span>
+</div>
+</div>
+</div>
+<div class="bg-gray-600 p-8 rounded-xl min-h-[300px] flex flex-col justify-between text-white relative overflow-hidden hover:shadow-xl transition group">
+<div class="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<h3 class="text-3xl font-medium relative z-10">Pre-paid<br/>excess<br/>baggage<br/>starting at<br/>₹1515</h3>
+<div class="flex items-end justify-between relative z-10">
+<p class="text-xs opacity-80 max-w-[150px]">Excess baggage and additional piece</p>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition">
+<span class="material-symbols-outlined text-gray-800">north_east</span>
+</div>
+</div>
+</div>
+<div class="bg-gray-600 p-8 rounded-xl min-h-[300px] flex flex-col justify-between text-white relative overflow-hidden hover:shadow-xl transition group">
+<div class="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<h3 class="text-3xl font-medium relative z-10">XL (Extra<br/>legroom)<br/>seats starting<br/>at ₹500</h3>
+<div class="flex items-end justify-between relative z-10">
+<p class="text-xs opacity-80 max-w-[150px]">Window, aisle or seat with extra legroom</p>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition">
+<span class="material-symbols-outlined text-gray-800">north_east</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="bg-brand dark:bg-background-dark text-white pt-16 pb-8 text-sm">
+<div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+<div class="col-span-1">
+<h5 class="font-bold mb-4">COMPANY</h5>
+<ul class="space-y-2 text-xs text-blue-100/80">
+<li><a class="hover:text-white hover:underline" href="#">About us</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Air Sankh Green – ESG report</a></li>
+<li><a class="hover:text-white hover:underline" href="#">6E Embrace – Diversity Equity &amp; Inclusion</a></li>
+<li><a class="hover:text-white hover:underline" href="#">IndiGoReach - Our CSR Initiatives</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Board of Directors</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Leadership Team</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Investor Relations</a></li>
+<li><a class="hover:text-white hover:underline" href="#">InterGlobe Enterprises</a></li>
+<li><a class="hover:text-white hover:underline" href="#">RPWD - Equal Opportunity Policy</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Transgender Persons Policy</a></li>
+<li><a class="hover:text-white hover:underline" href="#">HIV/AIDS workplace policy</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Seat/Aircraft Information</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h5 class="font-bold mb-4">SUPPORT</h5>
+<ul class="space-y-2 text-xs text-blue-100/80">
+<li><a class="hover:text-white hover:underline" href="#">Plan B</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Special/Disability Assistance</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Medical Assistance</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Seat Select</a></li>
+<li><a class="hover:text-white hover:underline" href="#">6E Eats</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Add-ons &amp; Services</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Baggage</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Refund Claim</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Charter Services</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Hotels</a></li>
+<li><a class="hover:text-white hover:underline" href="#">6Eskai</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Contact Us</a></li>
+<li><a class="hover:text-white hover:underline" href="#">IndiGo CarGo</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Tax exemption</a></li>
+<li><a class="hover:text-white hover:underline" href="#">FAQ's</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h5 class="font-bold mb-4">QUICK LINKS</h5>
+<ul class="space-y-2 text-xs text-blue-100/80">
+<li><a class="hover:text-white hover:underline" href="#">Tariff Sheet</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Developer Portal</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Offers</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Careers</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Advertise with us</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Sitemap</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Destinations</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Blogs</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Terms and Conditions</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Conditions of carriage</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Disclaimer</a></li>
+<li><a class="hover:text-white hover:underline" href="#">International Travel Tips</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Web check-in advisory</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Purchase requirement</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Download app</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Flight status</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Codeshare Partners</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Domestic Flights</a></li>
+<li><a class="hover:text-white hover:underline" href="#">International Flights</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Passenger Charter</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h5 class="font-bold mb-4">MEDIA</h5>
+<ul class="space-y-2 text-xs text-blue-100/80">
+<li><a class="hover:text-white hover:underline" href="#">Press releases</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Our awards</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Testimonials</a></li>
+<li><a class="hover:text-white hover:underline" href="#">Hello 6E Magazine</a></li>
+<li><a class="hover:text-white hover:underline" href="#">In-flight Entertainment</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h5 class="font-bold mb-4">DOWNLOAD APP</h5>
+<a class="text-xs text-blue-100/80 hover:text-white hover:underline mb-2 block" href="#">iOS / Android</a>
+</div>
+</div>
+<div class="border-t border-blue-900/50 pt-8 mt-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+<div>
+<h5 class="font-bold mb-2">Awards</h5>
+<p class="text-xs text-blue-100/80">Best Low Cost Airline-Asia</p>
+</div>
+<div>
+<h5 class="font-bold mb-2">Passenger Choice Awards</h5>
+<p class="text-xs text-blue-100/80"></p>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h5 class="font-bold mb-2">Best Low Cost Airline-Central Asia</h5>
+</div>
+<div>
+<h5 class="font-bold mb-2">SOCIAL MEDIA</h5>
+<div class="flex gap-2">
+<a class="w-6 h-6 bg-white text-brand rounded-full flex items-center justify-center font-bold text-[10px]" href="#">f</a>
+<a class="w-6 h-6 bg-white text-brand rounded-full flex items-center justify-center font-bold text-[10px]" href="#">X</a>
+<a class="w-6 h-6 bg-white text-brand rounded-full flex items-center justify-center font-bold text-[10px]" href="#">in</a>
+<a class="w-6 h-6 bg-white text-brand rounded-full flex items-center justify-center font-bold text-[10px]" href="#">IG</a>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 relative">
+<button class="absolute left-1/2 -top-12 -translate-x-1/2 bg-white text-brand p-2 rounded-full shadow-lg hover:bg-gray-100 transition" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+<span class="material-symbols-outlined">keyboard_arrow_up</span>
+</button>
+<div class="flex flex-wrap gap-4 text-[10px] text-blue-100/60">
+<a class="hover:text-white" href="#">Site map</a>
+<a class="hover:text-white" href="#">Privacy Policy</a>
+<a class="hover:text-white" href="#">Terms &amp; condition</a>
+<a class="hover:text-white" href="#">Cookie Policy</a>
+<a class="hover:text-white" href="#">Cyber security</a>
+<a class="hover:text-white" href="#">Disclaimer</a>
+<span>© Copyright 2025 IndiGo All rights reserved.</span>
+</div>
+<div class="text-[10px] text-blue-100/60 text-right">
+<div>+91 7034552355</div>
+<div>Connect with us on WhatsApp</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        // Dark Mode Toggle Logic
+        const themeToggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        themeToggleBtns.forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.theme = 'dark';
+                    } else {
+                        localStorage.theme = 'light';
+                    }
+                });
+            }
+        });
+        // Simple Text Auto-Carousel
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
+        const slideInterval = 4000; // 4 seconds
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, slideInterval);
+    </script>
+</body></html>
